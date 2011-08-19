@@ -1,8 +1,10 @@
-screen-resolution-extra (0.14build2) UNRELEASED; urgency=low
+screen-resolution-extra (0.14build2) oneiric; urgency=low
 
-  * 
+  * debian/rules:
+    - Replace /usr/share/cdbs/1/rules/langpack.mk with
+      /usr/share/cdbs/1/class/langcore.mk to fix FTBFS (LP: #829489).
 
- -- Alberto Milone <alberto.milone@canonical.com>  Fri, 19 Aug 2011 18:53:11 +0200
+ -- Alberto Milone <alberto.milone@canonical.com>  Fri, 19 Aug 2011 18:56:20 +0200
 
 screen-resolution-extra (0.14build1) natty; urgency=low
 
