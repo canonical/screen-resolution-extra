@@ -6,7 +6,7 @@ export DH_PYCENTRAL=include-links
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/python-distutils.mk
 #include /usr/share/cdbs/1/class/makefile.mk
-include /usr/share/cdbs/1/rules/langpack.mk
+include /usr/share/cdbs/1/class/langcore.mk
 
 DEB_DH_INSTALL_SOURCEDIR := debian/tmp
 
