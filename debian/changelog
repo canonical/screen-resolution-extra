@@ -1,3 +1,9 @@
+screen-resolution-extra (0.14build2) UNRELEASED; urgency=low
+
+  * 
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Fri, 19 Aug 2011 18:53:11 +0200
+
 screen-resolution-extra (0.14build1) natty; urgency=low
 
   * Rebuild with python 2.7 as the python default.
