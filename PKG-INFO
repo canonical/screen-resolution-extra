@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: screen-resolution-extra
+Version: 0.1
+Summary: Extension for the GNOME Screen Resolution applet
+Home-page: https://launchpad.net/screen-resolution-extra
+Author: Alberto Milone
+Author-email: albertomilone@alice.it
+License: GPLv2
+Description: Extension for the GNOME Screen Resolution applet
+Platform: Linux

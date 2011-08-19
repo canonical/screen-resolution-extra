@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+DEB_PYTHON_SYSTEM := pycentral
+export DH_PYCENTRAL=include-links
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/python-distutils.mk
+#include /usr/share/cdbs/1/class/makefile.mk
+include /usr/share/cdbs/1/rules/langpack.mk
+
+DEB_DH_INSTALL_SOURCEDIR := debian/tmp
+
+clean::
+	rm -f po/*.pot
+	rm -Rf build/
+
+install/screen-resolution-extra ::
+
+binary-install/screen-resolution-extra ::
+

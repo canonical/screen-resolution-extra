@@ -1,0 +1,155 @@
+screen-resolution-extra (0.14build1) natty; urgency=low
+
+  * Rebuild with python 2.7 as the python default.
+
+ -- Matthias Klose <doko@ubuntu.com>  Wed, 08 Dec 2010 15:10:44 +0000
+
+screen-resolution-extra (0.14) maverick; urgency=low
+
+  * Update the icon name for the dialog so that the latter doesn't
+    crash (LP: #638085).
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Sat, 25 Sep 2010 16:14:11 +0200
+
+screen-resolution-extra (0.13) lucid; urgency=low
+
+  * screenresolution-mechanism.py:
+    - Explicitly pass start-time to PolicyKit CheckAuthorization call
+      so that it works with polkit-1 0.95. Thanks to Martin Pitt for
+      the fix.
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Thu, 21 Jan 2010 10:20:04 +0100
+
+screen-resolution-extra (0.12) lucid; urgency=low
+
+  * setup.py:
+    - Do not install policy-dontzap.py any longer.
+    - Install nvidia-polkit.py which will be used by nvidia-settings. 
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Fri, 08 Jan 2010 21:00:52 +0100
+
+screen-resolution-extra (0.11) karmic; urgency=low
+
+  * Set the virtual resolution to 2048x2048 only if a smaller framebuffer
+    size was requested (LP: #433856).
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Wed, 14 Oct 2009 14:13:27 +0200
+
+screen-resolution-extra (0.10) karmic; urgency=low
+
+  * policy-dontzap.py, policyui.py: Add missing hashbang lines (files are
+    executable).
+  * debian/control: Update Vcs-Bzr: to ubuntu-desktop branch.
+  * Port to polkit-1: (LP: #435709):
+    - screenresolution-mechanism.policy.in: auth_self_keep_always →
+      auth_admin_keep.
+    - setup.{py,cfg}: Install policy file into share/polkit-1/actions.
+    - Drop ScreenResolution/policykit.py, and its usage in policyui.py and
+      policy-dontzap.py; client-side handling of PK is not necessary any more.
+    - screenresolution-mechanism.py: Drop PolicyKitAuthentication class, it's
+      way too complicated.
+    - screenresolution-mechanism.py, _check_permission(): Call polkit-1
+      instead of old PolicyKit.
+  * screenresolution-mechanism.py: Actually enforce privilege check by calling
+    _check_permission() in the service methods.
+  * debian/control: Add policykit-1 dependency.
+  * debian/control: Bump Standards-Version to 3.8.3 (no changes necessary).
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 08 Oct 2009 14:02:54 +0200
+
+screen-resolution-extra (0.9) karmic; urgency=low
+
+  * policyui.py:
+    - Normalise docstrings in checkVirtual().
+    - Remove computeVirtual() and compareFrameBuffer() as they were not used
+      since gnome-control-center already checks the available front buffer size.
+    - Add the optimal_virtual_resolution attribute set to [2048, 2048] (usually
+      the highest virtual resolution which doesn't break direct rendering) to
+      the BootWindow class and make sure that, if the required resolution is 
+      lower than optimal_virtual_resolution, the latter is used instead of the
+      former (LP: #412948).
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Thu, 13 Aug 2009 14:14:03 +0200
+
+screen-resolution-extra (0.8) jaunty; urgency=low
+
+  * Drop DEB_PYTHON_INSTALL_ARGS_ALL from debian/rules and use the default
+    one from cdbs (fixes FTBFS).
+
+ -- Michael Bienia <geser@ubuntu.com>  Tue, 07 Apr 2009 10:04:14 +0200
+
+screen-resolution-extra (0.7) jaunty; urgency=low
+
+  * policyui.py:
+    - Catch AttributeError exception if there are duplicate virtual options (LP: #282283).
+    - Import xorgparser so that XKit exceptions are actually caught.
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Mon, 06 Apr 2009 10:17:42 +0200
+
+screen-resolution-extra (0.6) jaunty; urgency=low
+
+  * Build for python2.6, include the symlinks in the package.
+
+ -- Matthias Klose <doko@ubuntu.com>  Tue, 24 Feb 2009 22:43:54 +0100
+
+screen-resolution-extra (0.5) jaunty; urgency=low
+
+  * debian/control: Add dependency on python-distutils-extra
+  * screenresolution-mechanism.policy.in:
+    - localise messages and descriptions
+    - add new dontzap action
+  * policy-dontzap.py: new app to set dontzap
+  * screenresolution-mechanism.py: new setDontZap method
+
+ -- Alberto Milone (tseliot) <albertomilone@alice.it>  Tue, 27 Jan 2009 17:59:00 +0100
+
+screen-resolution-extra (0.4) jaunty; urgency=low
+
+  [ Scott James Remnant ]
+  * com.ubuntu.ScreenResolution.Mechanism.conf:
+    - allow messages to be sent to the service.  LP: #306705.
+
+  [ Martin Pitt ]
+  * debian/control: Add Vcs-Bzr header.
+
+ -- Scott James Remnant <scott@ubuntu.com>  Sun, 04 Jan 2009 11:28:07 +0100
+
+screen-resolution-extra (0.3) intrepid; urgency=low
+
+  * Do not calculate the virtual resolution.
+  * Modify the virtual resolution only if the required resolution is
+    greater than the one which is currently set.  
+
+ -- Alberto Milone (tseliot) <albertomilone@alice.it>  Wed, 24 Sep 2008 17:08:50 +0200
+
+screen-resolution-extra (0.2) intrepid; urgency=low
+
+  * Change the section to utils/x11
+  * Make sure that backup creation takes place only when the xorg.conf exists
+  * Change string_operation_complete in ui.py into something easier to 
+    understand
+  * Do not use logging logging.error when informing users in policyui.py
+
+ -- Alberto Milone (tseliot) <albertomilone@alice.it>  Wed, 27 Aug 2008 19:13:45 +0200
+
+screen-resolution-extra (0.1.2) intrepid; urgency=low
+
+  * Don't try and use XKit, as it hasn't been imported. Instead import
+    xorgparser from it and use that instead. (LP: #269757)
+
+ -- James Westby <james.westby@canonical.com>  Sat, 13 Sep 2008 12:38:51 +0100
+
+screen-resolution-extra (0.1.1) intrepid; urgency=low
+
+  * Don't try and concatenate a string and a float (LP: #262906)
+    - Also use strftime() to give a more understandable date suffix to
+      the backup name.
+
+ -- James Westby <james.westby@canonical.com>  Fri, 12 Sep 2008 19:31:54 +0100
+
+screen-resolution-extra (0.1) intrepid; urgency=low
+
+  * First release
+
+ -- Alberto Milone (tseliot) <albertomilone@alice.it>  Sat, 16 Aug 2008 11:18:41 +0200
+
