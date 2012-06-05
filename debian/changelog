@@ -1,3 +1,21 @@
+screen-resolution-extra (0.14ubuntu2) precise; urgency=low
+
+  * Finish conversion to dh_python2.  Fixes issue where none of
+    screen-resolution-extra's files are installed, which prevents nvidia
+    config from making changes to xorg.conf.
+    (LP: #913690)
+  * Add dependency on policykit-gnome since some scripts use gtk policykit,
+    which won't work on KDE where gtk2 may not be installed by default.
+    (LP: #673733, #454261)
+
+ -- Bryce Harrington <bryce@ubuntu.com>  Mon, 09 Jan 2012 03:39:12 -0800
+
+screen-resolution-extra (0.14ubuntu1) precise; urgency=low
+
+  * Build using dh_python2.
+
+ -- Matthias Klose <doko@ubuntu.com>  Wed, 14 Dec 2011 16:01:42 +0100
+
 screen-resolution-extra (0.14build2) oneiric; urgency=low
 
   * debian/rules:
