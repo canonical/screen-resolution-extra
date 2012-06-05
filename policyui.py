@@ -30,8 +30,8 @@ import os
 import sys
 from subprocess import Popen, PIPE
 
-import XKit
-from XKit import xutils, xorgparser
+import xkit
+from xkit import xutils, xorgparser
 
 clean = False
 
@@ -42,7 +42,7 @@ def checkVirtual(virtres):
     
     try:
         a = xutils.XUtils(source)
-    except(IOError, XKit.xorgparser.ParseException):#if xorg.conf is missing or broken
+    except(IOError, xkit.xorgparser.ParseException):#if xorg.conf is missing or broken
         return False
     
     if len(a.globaldict['Screen']) > 0:
@@ -60,7 +60,7 @@ def checkVirtual(virtres):
                         if len(res) == 2 and int(virtres[0]) <= int(res[0]) and int(virtres[1]) <= int(res[1]):
                             # Nothing to do, the virtual resolution is already there
                             return True
-            except (XKit.xorgparser.SectionException, XKit.xorgparser.OptionException, AttributeError):
+            except (xkit.xorgparser.SectionException, xkit.xorgparser.OptionException, AttributeError):
                 pass
     
     return False
