@@ -28,7 +28,7 @@
 import dbus, dbus.service, gobject, logging
 import os, os.path
 import sys
-from XKit import xutils, xorgparser
+from xkit import xutils, xorgparser
 import time
 import shutil
 import subprocess
@@ -195,39 +195,39 @@ class BackendService(PolicyKitService):
                 break
 
         if empty:
-            a.makeSection('Device', 'Configured Video Device')
-            a.makeSection('Screen', identifier='Configured Screen Device')
-            a.addReference('Screen', 'Device', 'Configured Video Device', position=0)
-            a.makeSubSection('Screen', 'Display', position=0)
-            a.addSubOption('Screen', 'Display', 'Virtual', value=virtual, position=0)
+            a.make_section('Device', 'Configured Video Device')
+            a.make_section('Screen', identifier='Configured Screen Device')
+            a.add_reference('Screen', 'Device', 'Configured Video Device', position=0)
+            a.make_subsection('Screen', 'Display', position=0)
+            a.add_suboption('Screen', 'Display', 'Virtual', value=virtual, position=0)
         
         else:#if xorg.conf exists and is not empty
             devicelen = len(a.globaldict['Device'])
             screenlen = len(a.globaldict['Screen'])
             
             if screenlen == 0:
-                screen = a.makeSection('Screen', identifier='Configured Screen Device')
+                screen = a.make_section('Screen', identifier='Configured Screen Device')
                 if devicelen == 0:
-                    device = a.makeSection('Device', 'Configured Video Device')
+                    device = a.make_section('Device', 'Configured Video Device')
                 else:
                     device = 0
-                a.addReference('Screen', 'Device', 'Configured Video Device', position=device)
+                a.add_reference('Screen', 'Device', 'Configured Video Device', position=device)
                 
-                a.makeSubSection('Screen', 'Display', position=0)
-                a.addSubOption('Screen', 'Display', 'Virtual', value=virtual, position=0)
+                a.make_subsection('Screen', 'Display', position=0)
+                a.add_suboption('Screen', 'Display', 'Virtual', value=virtual, position=0)
                 
             else:#if at least 1 Screen section exists
                 '''
                 Set the virtual section in all the Screen sections
                 '''
                 for screen in a.globaldict['Screen']:
-                    a.makeSubSection('Screen', 'Display', position=screen)
-                    a.addSubOption('Screen', 'Display', 'Virtual', value=virtual, position=screen)
+                    a.make_subsection('Screen', 'Display', position=screen)
+                    a.add_suboption('Screen', 'Display', 'Virtual', value=virtual, position=screen)
 
         '''
         Write the changes to the destination file
         '''
-        a.writeFile(destination)
+        a.write(destination)
         return True
     
     @dbus.service.method(dbus_interface=INTERFACE_NAME,
