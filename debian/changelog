@@ -1,3 +1,9 @@
+screen-resolution-extra (0.14ubuntu4) UNRELEASED; urgency=low
+
+  * 
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Wed, 11 Jul 2012 14:53:52 +0200
+
 screen-resolution-extra (0.14ubuntu3) quantal; urgency=low
 
   * debian/control:
