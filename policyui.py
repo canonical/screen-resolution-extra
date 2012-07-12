@@ -96,9 +96,9 @@ def gui_dialog(message, parent_dialog,
                                message)
     
     translation = ui.AbstractUI()
-    
+
     dialog.set_title(translation.string_title)
-    
+
     if widget != None:
         if isinstance (widget, Gtk.CList):
             widget.select_row (page, 0)
@@ -120,8 +120,6 @@ def gui_dialog(message, parent_dialog,
 
     return ret
 
-
-
 class BootWindow:
     optimal_virtual_resolution = ['2048', '2048']
     
@@ -132,49 +130,37 @@ class BootWindow:
         self.dbus_cant_connect = translation.string_dbus_cant_connect
         self.operation_complete = translation.string_operation_complete
         self.cant_apply_settings = translation.string_cant_apply_settings
-        
-        self.window = Gtk.Window(Gtk.WindowType.TOPLEVEL)
-        self.window.connect("delete_event", self.on_delete_event)
-        self.window.connect("destroy", self.on_destroy)
-        
-        self.window.set_border_width(20)
-        
-        self.window.set_title(translation.string_title)
-        self.window.set_position(Gtk.WindowPosition.CENTER)
-        
-        self.window.set_icon_from_file("/usr/share/icons/hicolor/16x16/apps/preferences-desktop-display.png")
-        
-        vbox = Gtk.VBox(False, spacing=20)
         self.resolution = resolution
-        self.label = Gtk.Label(self.permission_text)
-        self.label.set_line_wrap(True)
-        self.label.set_justify(Gtk.Justification.FILL)
-        self.button1 = Gtk.Button(label=None, stock='gtk-yes', use_underline=False)
-        self.button1.connect("clicked", self.on_button1_clicked, None)
-        self.button1.show()
-        self.button2 = Gtk.Button(label=None, stock='gtk-no', use_underline=False)
-        self.button2.connect("clicked", self.on_button2_clicked, None)
-        self.button2.show()
-        
-        buttonbox = Gtk.HButtonBox()
-        buttonbox.set_layout(Gtk.ButtonBoxStyle.END)
-        buttonbox.set_spacing(10)
-        buttonbox.pack_start(self.button2, True, True, 0)
-        buttonbox.pack_start(self.button1, True, True, 0)
-        buttonbox.show()
-        vbox.pack_start(self.label, True, True, 0)
-        vbox.pack_start(buttonbox, True, True, 0)
-        self.window.add(vbox)
-        self.label.show()
-        
-        vbox.show()
-    
+        self.question_dialog(translation.string_title, self.permission_text)
+
+    def question_dialog(self, title, message):
+        '''question_dialog(title, message)
+
+        This is a generic Gtk MessageDialog function
+        for questions.
+        '''
+        dialog = Gtk.MessageDialog(None,
+                                   Gtk.DialogFlags.MODAL,
+                                   Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                   type=Gtk.MessageType.QUESTION,
+                                   buttons=Gtk.ButtonsType.YES_NO)
+        dialog.set_markup("<b>%s</b>" % title)
+        dialog.format_secondary_markup(message)
+        response = dialog.run()
+        dialog.destroy()
+
+        if response == Gtk.ResponseType.YES:
+            dialog.hide()
+            self.on_button1_clicked(dialog)
+        elif response == Gtk.ResponseType.NO:
+            self.on_button2_clicked(dialog)
+        else:
+            self.on_button2_clicked(dialog)
+
     def on_button1_clicked(self, widget, data=None):
-        self.window.hide()
+        #self.window.hide()
         self.conf = get_xkit_service()
         if not self.conf:
-#            gui_dialog(self.dbus_cant_connect,
-#                              self.window, message_type='error')
             sys.exit(1)
         
         # If the required resolution is lower than the optimal virtual
@@ -187,35 +173,12 @@ class BootWindow:
         status = self.conf.setVirtual(self.resolution)
         #print 'Status', status
         if status == True:
-            #gui_dialog(self.operation_complete, self.window, message_type='info')
             global clean
             clean = True
-            Gtk.main_quit()
-            #sys.exit(0)
-
-        else:
-            #gui_dialog(self.cant_apply_settings, self.window, message_type='error')
-            #sys.exit(1)
-            Gtk.main_quit()
         
     def on_button2_clicked(self, widget, data=None):
-        self.window.hide()
-#        gui_dialog(self.cant_apply_settings, self.window, message_type='error')
-        #sys.exit(1)
-        Gtk.main_quit()
-        
-        
-    def on_delete_event(self, widget, event, data=None):
-        # Close the window:
-        return False
-
-    def on_destroy(self, widget, data=None):
-        Gtk.main_quit()
-
-    def show(self):
-       self.window.show()
-
-
+        pass
+        #self.window.hide()
 
 
 if __name__ == "__main__":
@@ -231,7 +194,6 @@ if __name__ == "__main__":
     if checkVirtual(res):
         sys.exit(0)
     window = BootWindow(res)
-    window.show()
-    Gtk.main()
+
     if not clean:
         sys.exit(1)
