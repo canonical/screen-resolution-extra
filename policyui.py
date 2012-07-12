@@ -16,10 +16,9 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-
-import gtk, gobject, sys, dbus, logging
-import ScreenResolution
-from ScreenResolution import ui
+from gi.repository import Gtk
+import sys, dbus, logging
+from .ScreenResolution import ui
 
 SERVICE_NAME   = 'com.ubuntu.ScreenResolution.Mechanism'
 OBJECT_PATH    = '/'
@@ -56,7 +55,7 @@ def checkVirtual(virtres):
                         res = res.lower().split('x')
                     elif ' ' in res.lower().strip():
                         res = res.lower().split(' ')
-                        res = filter(lambda x: x != '', res)
+                        res = [x for x in res if x != '']
                         if len(res) == 2 and int(virtres[0]) <= int(res[0]) and int(virtres[1]) <= int(res[1]):
                             # Nothing to do, the virtual resolution is already there
                             return True
@@ -82,18 +81,18 @@ def gui_dialog(message, parent_dialog,
     Displays an error dialog.
     '''
     if message_type == 'error':
-        message_type = gtk.MESSAGE_ERROR
+        message_type = Gtk.MessageType.ERROR
         logging.error(message)
     elif message_type == 'info':
-        message_type = gtk.MESSAGE_INFO
+        message_type = Gtk.MessageType.INFO
         logging.info(message)
 
 
     
         
-    dialog = gtk.MessageDialog(parent_dialog,
-                               gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT,
-                               message_type, gtk.BUTTONS_OK,
+    dialog = Gtk.MessageDialog(parent_dialog,
+                               Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                               message_type, Gtk.ButtonsType.OK,
                                message)
     
     translation = ui.AbstractUI()
@@ -101,20 +100,20 @@ def gui_dialog(message, parent_dialog,
     dialog.set_title(translation.string_title)
     
     if widget != None:
-        if isinstance (widget, gtk.CList):
+        if isinstance (widget, Gtk.CList):
             widget.select_row (page, 0)
-        elif isinstance (widget, gtk.Notebook):
+        elif isinstance (widget, Gtk.Notebook):
             widget.set_current_page (page)
     if broken_widget != None:
         broken_widget.grab_focus ()
-        if isinstance (broken_widget, gtk.Entry):
+        if isinstance (broken_widget, Gtk.Entry):
             broken_widget.select_region (0, -1)
 
     if parent_dialog:
-        dialog.set_position (gtk.WIN_POS_CENTER_ON_PARENT)
+        dialog.set_position (Gtk.WindowPosition.WIN_POS_CENTER_ON_PARENT)
         dialog.set_transient_for(parent_dialog)
     else:
-        dialog.set_position (gtk.WIN_POS_CENTER)
+        dialog.set_position (Gtk.WindowPosition.WIN_POS_CENTER)
 
     ret = dialog.run ()
     dialog.destroy()    
@@ -134,31 +133,31 @@ class BootWindow:
         self.operation_complete = translation.string_operation_complete
         self.cant_apply_settings = translation.string_cant_apply_settings
         
-        self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        self.window = Gtk.Window(Gtk.WindowType.WINDOW_TOPLEVEL)
         self.window.connect("delete_event", self.on_delete_event)
         self.window.connect("destroy", self.on_destroy)
         
         self.window.set_border_width(20)
         
         self.window.set_title(translation.string_title)
-        self.window.set_position(gtk.WIN_POS_CENTER)
+        self.window.set_position(Gtk.WindowPosition.WIN_POS_CENTER)
         
         self.window.set_icon_from_file("/usr/share/icons/hicolor/16x16/apps/preferences-desktop-display.png")
         
-        vbox = gtk.VBox(spacing=20)
+        vbox = Gtk.VBox(False, spacing=20)
         self.resolution = resolution
-        self.label = gtk.Label(self.permission_text)
+        self.label = Gtk.Label(self.permission_text)
         self.label.set_line_wrap(True)
-        self.label.set_justify(gtk.JUSTIFY_FILL)
-        self.button1 = gtk.Button(label=None, stock='gtk-yes', use_underline=False)
+        self.label.set_justify(Gtk.Justification.JUSTIFY_FILL)
+        self.button1 = Gtk.Button(label=None, stock='gtk-yes', use_underline=False)
         self.button1.connect("clicked", self.on_button1_clicked, None)
         self.button1.show()
-        self.button2 = gtk.Button(label=None, stock='gtk-no', use_underline=False)
+        self.button2 = Gtk.Button(label=None, stock='gtk-no', use_underline=False)
         self.button2.connect("clicked", self.on_button2_clicked, None)
         self.button2.show()
         
-        buttonbox = gtk.HButtonBox()
-        buttonbox.set_layout(gtk.BUTTONBOX_END)
+        buttonbox = Gtk.HButtonBox()
+        buttonbox.set_layout(Gtk.ButtonBoxStyle.BUTTONBOX_END)
         buttonbox.set_spacing(10)
         buttonbox.pack_start(self.button2)
         buttonbox.pack_start(self.button1)
@@ -191,19 +190,19 @@ class BootWindow:
             #gui_dialog(self.operation_complete, self.window, message_type='info')
             global clean
             clean = True
-            gtk.main_quit()
+            Gtk.main_quit()
             #sys.exit(0)
 
         else:
             #gui_dialog(self.cant_apply_settings, self.window, message_type='error')
             #sys.exit(1)
-            gtk.main_quit()
+            Gtk.main_quit()
         
     def on_button2_clicked(self, widget, data=None):
         self.window.hide()
 #        gui_dialog(self.cant_apply_settings, self.window, message_type='error')
         #sys.exit(1)
-        gtk.main_quit()
+        Gtk.main_quit()
         
         
     def on_delete_event(self, widget, event, data=None):
@@ -211,7 +210,7 @@ class BootWindow:
         return False
 
     def on_destroy(self, widget, data=None):
-        gtk.main_quit()
+        Gtk.main_quit()
 
     def show(self):
        self.window.show()
@@ -233,6 +232,6 @@ if __name__ == "__main__":
         sys.exit(0)
     window = BootWindow(res)
     window.show()
-    gtk.main()
+    Gtk.main()
     if not clean:
         sys.exit(1)
