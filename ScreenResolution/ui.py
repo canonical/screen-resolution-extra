@@ -46,7 +46,8 @@ class AbstractUI:
         accelerators (like in GTK). For inserting a real '_', use '__'.
         '''
         # KDE compatible conversion
-        result = unicode(gettext.gettext(str), 'UTF-8')
+        #result = unicode(gettext.gettext(str), 'UTF-8')
+        result = gettext.gettext(str)
 
         if convert_keybindings:
             result = self.convert_keybindings(result)

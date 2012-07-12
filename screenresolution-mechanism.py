@@ -86,7 +86,7 @@ class PolicyKitService(dbus.service.Object):
                     ('unix-process', {'pid': dbus.UInt32(pid, variant_level=1),
                      'start-time': dbus.UInt64(0, variant_level=1)}),
                     action, {'': ''}, dbus.UInt32(1), '', timeout=600)
-        except dbus.DBusException, e:
+        except dbus.DBusException as e:
             if reconnect and e._dbus_error_name == 'org.freedesktop.DBus.Error.ServiceUnknown':
                 # polkitd timed out, connect again
                 return self._check_polkit_privilege(sender, conn, action, reconnect=False)
@@ -146,7 +146,7 @@ class BackendService(PolicyKitService):
         if self.connection.list_exported_child_objects('/'):
             return True
 
-        print 'Terminating %s due to inactivity.' % self.SERVICE_NAME
+        print('Terminating %s due to inactivity.' % self.SERVICE_NAME)
         self.__loop.quit()
 
         return False
@@ -154,9 +154,9 @@ class BackendService(PolicyKitService):
     def run(self):
         '''Creates a GLib main loop for keeping the service alive.'''
 
-        print 'Running %s.' % self.SERVICE_NAME
-        print ('Terminating it after %d seconds of inactivity.' 
-               % self.IDLE_TIMEOUT)
+        print('Running %s.' % self.SERVICE_NAME)
+        print(('Terminating it after %d seconds of inactivity.'
+               % self.IDLE_TIMEOUT))
 
         self.__start_idle_timeout()
         self.__loop.run()

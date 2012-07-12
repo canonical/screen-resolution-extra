@@ -110,10 +110,10 @@ def gui_dialog(message, parent_dialog,
             broken_widget.select_region (0, -1)
 
     if parent_dialog:
-        dialog.set_position (Gtk.WindowPosition.WIN_POS_CENTER_ON_PARENT)
+        dialog.set_position (Gtk.WindowPosition.CENTER_ON_PARENT)
         dialog.set_transient_for(parent_dialog)
     else:
-        dialog.set_position (Gtk.WindowPosition.WIN_POS_CENTER)
+        dialog.set_position (Gtk.WindowPosition.CENTER)
 
     ret = dialog.run ()
     dialog.destroy()    
@@ -133,14 +133,14 @@ class BootWindow:
         self.operation_complete = translation.string_operation_complete
         self.cant_apply_settings = translation.string_cant_apply_settings
         
-        self.window = Gtk.Window(Gtk.WindowType.WINDOW_TOPLEVEL)
+        self.window = Gtk.Window(Gtk.WindowType.TOPLEVEL)
         self.window.connect("delete_event", self.on_delete_event)
         self.window.connect("destroy", self.on_destroy)
         
         self.window.set_border_width(20)
         
         self.window.set_title(translation.string_title)
-        self.window.set_position(Gtk.WindowPosition.WIN_POS_CENTER)
+        self.window.set_position(Gtk.WindowPosition.CENTER)
         
         self.window.set_icon_from_file("/usr/share/icons/hicolor/16x16/apps/preferences-desktop-display.png")
         
@@ -148,7 +148,7 @@ class BootWindow:
         self.resolution = resolution
         self.label = Gtk.Label(self.permission_text)
         self.label.set_line_wrap(True)
-        self.label.set_justify(Gtk.Justification.JUSTIFY_FILL)
+        self.label.set_justify(Gtk.Justification.FILL)
         self.button1 = Gtk.Button(label=None, stock='gtk-yes', use_underline=False)
         self.button1.connect("clicked", self.on_button1_clicked, None)
         self.button1.show()
@@ -157,13 +157,13 @@ class BootWindow:
         self.button2.show()
         
         buttonbox = Gtk.HButtonBox()
-        buttonbox.set_layout(Gtk.ButtonBoxStyle.BUTTONBOX_END)
+        buttonbox.set_layout(Gtk.ButtonBoxStyle.END)
         buttonbox.set_spacing(10)
-        buttonbox.pack_start(self.button2)
-        buttonbox.pack_start(self.button1)
+        buttonbox.pack_start(self.button2, True, True, 0)
+        buttonbox.pack_start(self.button1, True, True, 0)
         buttonbox.show()
-        vbox.pack_start(self.label)
-        vbox.pack_start(buttonbox)
+        vbox.pack_start(self.label, True, True, 0)
+        vbox.pack_start(buttonbox, True, True, 0)
         self.window.add(vbox)
         self.label.show()
         
