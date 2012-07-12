@@ -1,0 +1,2 @@
+debian/tmp/usr/* usr/
+debian/tmp/etc/* etc/
