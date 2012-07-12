@@ -1,8 +1,11 @@
-screen-resolution-extra (0.14ubuntu4) UNRELEASED; urgency=low
+screen-resolution-extra (0.15) quantal; urgency=low
 
-  * 
+  * Add support for python 3.
+  * Migrate to python-gi.
+  * Fix issue with the new XKit API (LP: #1012774).
+  * Drop obsolete code for the DontZap option.
 
- -- Alberto Milone <alberto.milone@canonical.com>  Wed, 11 Jul 2012 14:53:52 +0200
+ -- Alberto Milone <alberto.milone@canonical.com>  Thu, 12 Jul 2012 18:58:36 +0200
 
 screen-resolution-extra (0.14ubuntu3) quantal; urgency=low
 
