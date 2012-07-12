@@ -1,19 +1,35 @@
 #!/usr/bin/make -f
 
-DEB_PYTHON2_MODULE_PACKAGES := screen-resolution-extra
+PYTHON2=$(shell pyversions -vr)
+PYTHON3=$(shell py3versions -vr)
+PYTHON2MJ=$(shell pyversions -vr | cut -c1-1)
+PYTHON3MJ=$(shell py3versions -vr | cut -c1-1)
 
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/python-distutils.mk
-#include /usr/share/cdbs/1/class/makefile.mk
-include /usr/share/cdbs/1/class/langcore.mk
+%:
+	dh $@ --with python2,python3
 
-DEB_DH_INSTALL_SOURCEDIR := debian/tmp
+build-python%:
+	python$* setup.py build
 
-clean::
+override_dh_auto_build: $(PYTHON3:%=build-python%) $(PYTHON2:%=build-python%)
+	dh_auto_build
+
+install-python%:
+	python$* setup.py install --root=$(CURDIR)/debian/tmp --install-layout=deb
+
+override_dh_auto_install: $(PYTHON3:%=install-python%) $(PYTHON2:%=install-python%)
+	dh_auto_install
+
+#override_dh_installchangelogs:
+#	dh_installchangelogs -k foo/NEWS.rst
+
+#override_dh_installdocs:
+#	python setup.py build_sphinx
+#	dh_installdocs build/sphinx/html
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf build
+	rm -rf *.egg-info
 	rm -f po/*.pot
-	rm -Rf build/
-
-install/screen-resolution-extra ::
-
-binary-install/screen-resolution-extra ::
 

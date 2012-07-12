@@ -2,22 +2,26 @@ Source: screen-resolution-extra
 Section: x11
 Priority: optional
 Build-Depends:
- cdbs (>= 0.4.90~),
  debhelper (>= 7.0.50~),
- python (>= 2.6.6-3~),
+ python-dev (>= 2.6),
+ python3-dev,
  intltool,
- python-distutils-extra
+ python-distutils-extra,
+ python3-distutils-extra
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Alberto Milone (tseliot) <albertomilone@alice.it>
 Standards-Version: 3.8.3
+X-Python-Version: >= 2.6
+X-Python3-Version: >= 3.2
 Vcs-Bzr: http://bazaar.launchpad.net/~ubuntu-desktop/screen-resolution-extra/ubuntu/
 
 Package: screen-resolution-extra
 Architecture: all
-XB-Python-Version: ${python:Versions}
 Depends:
  ${python:Depends},
  python-xkit (>= 0.5.0),
- policykit-1-gnome
+ policykit-1-gnome,
+ python3-gi,
+ ${misc:Depends}
 Description: Extension for the GNOME screen resolution applet
  Extension for the GNOME screen resolution applet.
