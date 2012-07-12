@@ -18,7 +18,7 @@
 
 from gi.repository import Gtk
 import sys, dbus, logging
-from .ScreenResolution import ui
+from ScreenResolution import ui
 
 SERVICE_NAME   = 'com.ubuntu.ScreenResolution.Mechanism'
 OBJECT_PATH    = '/'
