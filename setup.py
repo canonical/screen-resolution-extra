@@ -31,6 +31,7 @@ setup(
                 ("share/screen-resolution-extra", glob.glob("screenresolution-mechanism.py")),
                 ("share/screen-resolution-extra", glob.glob("policyui.py")),
                 ("share/screen-resolution-extra", glob.glob("nvidia-polkit.py")),
+                ("share/screen-resolution-extra", glob.glob("nvidia-prime.py")),
                ],
     cmdclass = { "build" : build_extra.build_extra,
             "build_i18n" :  build_i18n.build_i18n,

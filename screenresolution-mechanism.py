@@ -362,7 +362,31 @@ class BackendService(PolicyKitService):
             return 1
         
         return 0
-    
+
+
+    @dbus.service.method(dbus_interface=INTERFACE_NAME,
+                         in_signature='s', out_signature='i',
+                         sender_keyword='sender', connection_keyword='conn')
+    def prime_select(self, mode, sender=None, conn=None):
+        '''Select and set the power profile with PRIME'''
+
+        self._check_permission(sender, conn,
+            'com.ubuntu.screenresolution.mechanism.prime')
+
+        prime_switcher = '/usr/bin/prime-select'
+        if not os.path.isfile(prime_switcher):
+            logging.error('%s does not exist' % prime_switcher)
+            return 1
+
+        if mode in ['intel', 'nvidia']:
+            logging.debug('calling %s with %s' % (prime_switcher, mode))
+            retcode = subprocess.call([prime_switcher, mode])
+            return retcode
+        else:
+            logging.error('called %s with wrong arguments = %s' % (prime_switcher, mode))
+            return 1
+
+
 def get_service_bus():
     '''Retrieves a reference to the D-BUS system bus.'''
 
