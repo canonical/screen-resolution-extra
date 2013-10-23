@@ -59,7 +59,17 @@ if __name__ == '__main__':
             sys.exit(1)
 
         # Exit using the retcode
-        sys.exit(conf.prime_select(arg))
+        try:
+            sys.exit(conf.prime_select(arg))
+        except dbus.exceptions.DBusException, e:
+            message = '%s' % e
+            sys.stderr.write(message)
+            if 'AccessDeniedException' in message:
+                # The user probably did not enter the password
+                # or cancelled
+                sys.exit(5)
+            else:
+                sys.exit(1)
     else:
         usage()
         sys.exit(1)
