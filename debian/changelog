@@ -1,8 +1,10 @@
-screen-resolution-extra (0.16) UNRELEASED; urgency=low
+screen-resolution-extra (0.16) trusty; urgency=low
 
-  * 
+  * nvidia-prime.py, screenresolution-mechanism.py,
+    screenresolution-mechanism.policy.in, setup.py:
+    - Add action and mechanism for Nvidia PRIME.
 
- -- Alberto Milone <alberto.milone@canonical.com>  Fri, 08 Nov 2013 17:18:08 +0100
+ -- Alberto Milone <alberto.milone@canonical.com>  Fri, 08 Nov 2013 18:03:51 +0100
 
 screen-resolution-extra (0.15ubuntu1) raring; urgency=low
 
