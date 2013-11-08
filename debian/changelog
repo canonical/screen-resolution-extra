@@ -1,3 +1,15 @@
+screen-resolution-extra (0.16) UNRELEASED; urgency=low
+
+  * 
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Fri, 08 Nov 2013 17:18:08 +0100
+
+screen-resolution-extra (0.15ubuntu1) raring; urgency=low
+
+  * Build depend on the python*-all-dev packages.
+
+ -- Matthias Klose <doko@ubuntu.com>  Fri, 26 Oct 2012 11:29:40 +0200
+
 screen-resolution-extra (0.15) quantal; urgency=low
 
   * Add support for python 3.
