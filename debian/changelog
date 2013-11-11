@@ -1,3 +1,9 @@
+screen-resolution-extra (0.16ubuntu1) trusty; urgency=low
+
+  * Fix syntax error in nvidia-prime.py which broke upgrades. (LP: #1249460) 
+
+ -- Iain Lane <iain@orangesquash.org.uk>  Sat, 09 Nov 2013 17:47:47 +0000
+
 screen-resolution-extra (0.16) trusty; urgency=low
 
   * nvidia-prime.py, screenresolution-mechanism.py,

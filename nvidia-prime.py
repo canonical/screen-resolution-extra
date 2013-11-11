@@ -61,7 +61,7 @@ if __name__ == '__main__':
         # Exit using the retcode
         try:
             sys.exit(conf.prime_select(arg))
-        except dbus.exceptions.DBusException, e:
+        except dbus.exceptions.DBusException as e:
             message = '%s' % e
             sys.stderr.write(message)
             if 'AccessDeniedException' in message:
