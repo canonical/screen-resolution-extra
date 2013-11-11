@@ -13,7 +13,8 @@ XSBC-Original-Maintainer: Alberto Milone (tseliot) <albertomilone@alice.it>
 Standards-Version: 3.8.3
 X-Python-Version: >= 2.6
 X-Python3-Version: >= 3.2
-Vcs-Bzr: http://bazaar.launchpad.net/~ubuntu-desktop/screen-resolution-extra/ubuntu/
+Vcs-Git: git://github.com/tseliot/screen-resolution-extra.git
+Vcs-Browser: https://github.com/tseliot/screen-resolution-extra.git
 
 Package: screen-resolution-extra
 Architecture: all
