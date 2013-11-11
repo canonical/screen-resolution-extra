@@ -1,8 +1,9 @@
-screen-resolution-extra (0.16ubuntu2) UNRELEASED; urgency=low
+screen-resolution-extra (0.16ubuntu2) trusty; urgency=low
 
-  * 
+  * debian/control:
+    - Add the correct Vcs-Git and Vcs-Browser.
 
- -- Alberto Milone <alberto.milone@canonical.com>  Mon, 11 Nov 2013 11:12:32 +0100
+ -- Alberto Milone <alberto.milone@canonical.com>  Mon, 11 Nov 2013 11:12:44 +0100
 
 screen-resolution-extra (0.16ubuntu1) trusty; urgency=low
 
