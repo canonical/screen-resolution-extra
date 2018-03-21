@@ -19,7 +19,7 @@
 ## Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 
-import gtk, gobject, sys, dbus, logging, os, re
+import sys, dbus, logging
 
 SERVICE_NAME   = 'com.ubuntu.ScreenResolution.Mechanism'
 OBJECT_PATH    = '/'

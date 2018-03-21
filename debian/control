@@ -3,15 +3,12 @@ Section: x11
 Priority: optional
 Build-Depends:
  debhelper (>= 7.0.50~),
- python-all-dev (>= 2.6),
  python3-all-dev,
  intltool,
- python-distutils-extra,
  python3-distutils-extra
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Alberto Milone (tseliot) <albertomilone@alice.it>
 Standards-Version: 3.8.3
-X-Python-Version: >= 2.6
 X-Python3-Version: >= 3.2
 Vcs-Git: git://github.com/tseliot/screen-resolution-extra.git
 Vcs-Browser: https://github.com/tseliot/screen-resolution-extra.git
@@ -20,8 +17,8 @@ Package: screen-resolution-extra
 Architecture: all
 Depends:
  ${python:Depends},
- python-xkit (>= 0.5.0),
- policykit-1-gnome,
+ python3-xkit (>= 0.5.0),
+ policykit-1-gnome | polkit-1-auth-agent,
  python3-gi,
  ${misc:Depends}
 Description: Extension for the GNOME screen resolution applet

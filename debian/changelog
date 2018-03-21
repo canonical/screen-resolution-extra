@@ -1,3 +1,28 @@
+screen-resolution-extra (0.17.2) bionic; urgency=medium
+
+  * Depend on policykit-1-gnome | polkit-1-auth-agent for desktop
+    environments that provide their own PolicyKit authentication
+    agents. (LP: #1745815)
+
+ -- Vlad Orlov <monsta@inbox.ru>  Sun, 28 Jan 2018 01:14:32 +0300
+
+screen-resolution-extra (0.17.1) trusty; urgency=low
+
+  * screenresolution-mechanism:
+    - Make sure that the mechanism uses python 3 (LP: #1274733).
+    - Replace gobject with the gir libraries.
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Tue, 18 Feb 2014 13:08:10 +0100
+
+screen-resolution-extra (0.17) trusty; urgency=low
+
+  * debian/control, debian/rules, setup.py:
+    - Drop support for Python 2.x.
+  * nvidia-prime.py:
+    - Do not import gtk, gobject, os, re modules (LP: #1275223).
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Mon, 03 Feb 2014 16:02:52 +0100
+
 screen-resolution-extra (0.16ubuntu2) trusty; urgency=low
 
   * debian/control:

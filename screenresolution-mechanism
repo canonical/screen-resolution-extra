@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2008 Fluendo Embedded S.L. (www.fluendo.com)
@@ -20,18 +20,21 @@
 # taken from:
 # https://code.fluendo.com/remotecontrol/trac/browser/trunk/
 #         gnome_lirc_properties/backend.py?rev=217
-# 
+#
 # modified by Harald Hoyer <harald@redhat.com>
 #
 # modified by Alberto Milone (tseliot) <albertomilone@alice.it>
 
-import dbus, dbus.service, gobject, logging
+import dbus, dbus.service, logging
 import os, os.path
 import sys
-from xkit import xutils, xorgparser
 import time
 import shutil
 import subprocess
+
+from gi.repository import GLib, GObject
+from xkit import xutils, xorgparser
+
 
 # Modern flavors of dbus bindings have that symbol in dbus.lowlevel,
 # for old flavours the internal _dbus_bindings module must be used.
@@ -108,14 +111,14 @@ class BackendService(PolicyKitService):
     SERVICE_NAME   = 'com.ubuntu.ScreenResolution.Mechanism'
     IDLE_TIMEOUT   =  30
 
-    def __init__(self, connection=None, path='/'):        
+    def __init__(self, connection=None, path='/'):
         if connection is None:
             connection = get_service_bus()
 
         super(BackendService, self).__init__(connection, path)
 
         self.__name = dbus.service.BusName(self.SERVICE_NAME, connection)
-        self.__loop = gobject.MainLoop()
+        self.__loop = GObject.MainLoop()
         self.__timeout = 0
         connection.add_message_filter(self.__message_filter)
 
@@ -134,9 +137,9 @@ class BackendService(PolicyKitService):
         '''Restarts the timeout for terminating the service when idle.'''
 
         if self.__timeout:
-            gobject.source_remove(self.__timeout)
+            GObject.source_remove(self.__timeout)
 
-        self.__timeout = gobject.timeout_add(self.IDLE_TIMEOUT * 1000,
+        self.__timeout = GObject.timeout_add(self.IDLE_TIMEOUT * 1000,
                                              self.__timeout_cb)
 
     def __timeout_cb(self):
@@ -165,7 +168,7 @@ class BackendService(PolicyKitService):
     # pylint: disable-msg=R0913
     @dbus.service.method(dbus_interface=INTERFACE_NAME,
                          in_signature='as', out_signature='b',
-                         sender_keyword='sender', connection_keyword='conn')   
+                         sender_keyword='sender', connection_keyword='conn')
     def setVirtual(self, virtres, sender=None, conn=None):
         '''
         Replace the first line of this example with a source and a destination file
@@ -174,20 +177,20 @@ class BackendService(PolicyKitService):
             'com.ubuntu.screenresolution.mechanism.configure')
 
         virtual = ' '.join(virtres)
-        
+
         source = '/etc/X11/xorg.conf'
         destination = '/etc/X11/xorg.conf'
-        
+
         if os.path.exists(source):
             #make a backup of the xorg.conf
             backup = source + "." + time.strftime("%Y%m%d%H%M%S")
             shutil.copyfile(source, backup)
-        
+
         try:
             a = xutils.XUtils(source)
         except(IOError, xorgparser.ParseException):#if xorg.conf is missing or broken
             a = xutils.XUtils()#start from scratch
-        
+
         empty = True
         for section in a.globaldict:
             if len(a.globaldict[section]) > 0:
@@ -200,11 +203,11 @@ class BackendService(PolicyKitService):
             a.add_reference('Screen', 'Device', 'Configured Video Device', position=0)
             a.make_subsection('Screen', 'Display', position=0)
             a.add_suboption('Screen', 'Display', 'Virtual', value=virtual, position=0)
-        
+
         else:#if xorg.conf exists and is not empty
             devicelen = len(a.globaldict['Device'])
             screenlen = len(a.globaldict['Screen'])
-            
+
             if screenlen == 0:
                 screen = a.make_section('Screen', identifier='Configured Screen Device')
                 if devicelen == 0:
@@ -212,10 +215,10 @@ class BackendService(PolicyKitService):
                 else:
                     device = 0
                 a.add_reference('Screen', 'Device', 'Configured Video Device', position=device)
-                
+
                 a.make_subsection('Screen', 'Display', position=0)
                 a.add_suboption('Screen', 'Display', 'Virtual', value=virtual, position=0)
-                
+
             else:#if at least 1 Screen section exists
                 '''
                 Set the virtual section in all the Screen sections
@@ -229,7 +232,7 @@ class BackendService(PolicyKitService):
         '''
         a.write(destination)
         return True
-    
+
     @dbus.service.method(dbus_interface=INTERFACE_NAME,
                          in_signature='s', out_signature='i',
                          sender_keyword='sender', connection_keyword='conn')
@@ -244,7 +247,7 @@ class BackendService(PolicyKitService):
         if not os.path.isfile(dontzap_file):
             logging.error('/usr/bin/dontzap does not exist')
             return 1
-        
+
         if enable in ['--enable', '--disable']:
             logging.debug('calling dontzap with %s' % enable)
             retcode = subprocess.call([dontzap_file, enable])
@@ -261,26 +264,26 @@ class BackendService(PolicyKitService):
 
         self._check_permission(sender, conn,
             'com.ubuntu.screenresolution.mechanism.configure')
-        
+
         xorg_path = '/etc/X11'
         backup_path = os.path.join(xorg_path, backup_file)
-        
+
         try:
             os.unlink(backup_path)
             logging.debug('Removing previous backup: %s' % backup_path)
         except(OSError, IOError):
             logging.debug('Nothing to remove. %s does not exist' % backup_path)
             pass
-        
+
         xorg_source_path = '/etc/X11/xorg.conf'
-        
+
         try:
             #make a backup of the xorg.conf
             shutil.copyfile(xorg_source_path, backup_path)
         except IOError:
             logging.error('%s does not exist' % xorg_source_path)
             return 1
-        
+
         return 0
 
     @dbus.service.method(dbus_interface=INTERFACE_NAME,
@@ -291,24 +294,24 @@ class BackendService(PolicyKitService):
 
         self._check_permission(sender, conn,
             'com.ubuntu.screenresolution.mechanism.configure')
-        
+
         xorg_file_path = '/etc/X11/xorg.conf'
-        
-        
+
+
         try:
             xutils.XUtils(src_file)
             logging.debug('%s is a valid xorg.conf file.' % src_file)
         except(IOError, xorgparser.ParseException):#if xorg.conf is missing or broken
             logging.error('%s does not seem to be a valid xorg.conf file.' % src_file)
             return 1
-        
+
         try:
             shutil.copyfile(src_file, xorg_file_path)
             logging.debug('%s was written successfully to %s.' % (src_file, xorg_file_path))
         except IOError:
             logging.error('%s does not exist' % xorg_source_path)
             return 1
-        
+
         return 0
 
 
@@ -327,19 +330,19 @@ class BackendService(PolicyKitService):
 
         self._check_permission(sender, conn,
             'com.ubuntu.screenresolution.mechanism.configure')
-        
+
         xorg_path = '/etc/X11'
         xorg_file_path = os.path.join(xorg_path, 'xorg.conf')
         backup_path = os.path.join(xorg_path, backup_file)
 
-        # Try to remove any previous backup in backup_path        
+        # Try to remove any previous backup in backup_path
         try:
             os.unlink(backup_path)
             logging.debug('Removing previous backup: %s' % backup_path)
         except(OSError, IOError):
             logging.debug('Nothing to remove. %s does not exist' % backup_path)
             pass
-        
+
         # Try to make a backup of xorg.conf
         try:
             shutil.copyfile(xorg_file_path, backup_path)
@@ -353,14 +356,14 @@ class BackendService(PolicyKitService):
         except(IOError, xorgparser.ParseException):#if xorg.conf is missing or broken
             logging.error('%s does not seem to be a valid xorg.conf file.' % src_file)
             return 1
-        
+
         try:
             shutil.copyfile(src_file, xorg_file_path)
             logging.debug('%s was written successfully to %s.' % (src_file, xorg_file_path))
         except IOError:
             logging.error('%s does not exist' % xorg_source_path)
             return 1
-        
+
         return 0
 
 
@@ -418,6 +421,5 @@ if __name__ == '__main__':
     if '--debug' in argv or '-d' in argv:
         logging.basicConfig(stream=sys.stderr)
         logging.getLogger().setLevel(logging.NOTSET)
-        
-    BackendService().run()
 
+    BackendService().run()

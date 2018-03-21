@@ -28,7 +28,7 @@ setup(
                 ("/etc/dbus-1/system.d", glob.glob("com.ubuntu.ScreenResolution.Mechanism.conf")),
                 ("share/dbus-1/system-services", glob.glob("com.ubuntu.ScreenResolution.Mechanism.service")),
                 ("share/polkit-1/actions", glob.glob("screenresolution-mechanism.policy")),
-                ("share/screen-resolution-extra", glob.glob("screenresolution-mechanism.py")),
+                ("share/screen-resolution-extra", glob.glob("screenresolution-mechanism")),
                 ("share/screen-resolution-extra", glob.glob("policyui.py")),
                 ("share/screen-resolution-extra", glob.glob("nvidia-polkit.py")),
                 ("share/screen-resolution-extra", glob.glob("nvidia-prime.py")),

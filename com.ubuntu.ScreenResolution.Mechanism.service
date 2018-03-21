@@ -7,5 +7,5 @@
 #
 [D-BUS Service]
 Name=com.ubuntu.ScreenResolution.Mechanism
-Exec=/usr/share/screen-resolution-extra/screenresolution-mechanism.py
+Exec=/usr/share/screen-resolution-extra/screenresolution-mechanism
 User=root
