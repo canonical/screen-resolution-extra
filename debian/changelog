@@ -1,3 +1,12 @@
+screen-resolution-extra (0.17.3) bionic; urgency=medium
+
+  * SECURITY UPDATE: PID race in screenresolution-mechanism
+    - screenresolution-mechanism: Pass the system bus name of the calling
+      process to Policykit, rather than the PID
+    - CVE-2018-8885
+
+ -- Chris Coulson <chris.coulson@canonical.com>  Fri, 06 Apr 2018 13:21:41 +0100
+
 screen-resolution-extra (0.17.2) bionic; urgency=medium
 
   * Depend on policykit-1-gnome | polkit-1-auth-agent for desktop
