@@ -18,7 +18,7 @@ Architecture: all
 Depends:
  ${python:Depends},
  python3-xkit (>= 0.5.0),
- policykit-1-gnome | polkit-1-auth-agent,
+ gnome-shell | policykit-1-gnome | polkit-1-auth-agent,
  python3-gi,
  ${misc:Depends}
 Description: Extension for the GNOME screen resolution applet
