@@ -1,3 +1,9 @@
+screen-resolution-extra (0.18build1) focal; urgency=medium
+
+  * No-change rebuild to build with python3.8.
+
+ -- Matthias Klose <doko@ubuntu.com>  Fri, 18 Oct 2019 18:12:18 +0000
+
 screen-resolution-extra (0.18) eoan; urgency=medium
 
   * ScreenResolution/__init__.py
