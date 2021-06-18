@@ -1,6 +1,7 @@
-screen-resolution-extra (0.17.4) UNRELEASED; urgency=medium
+screen-resolution-extra (0.17.4) disco; urgency=medium
 
-  * 
+  * debian/control:
+    - Add optional dependency on gnome-shell (LP: #1815374).
 
  -- Alberto Milone <alberto.milone@canonical.com>  Wed, 13 Mar 2019 13:16:47 +0100
 
