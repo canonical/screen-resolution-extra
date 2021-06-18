@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
+<policyconfig>
+  <vendor>Nvidia Settings</vendor>
+  <vendor_url>https://wiki.ubuntu.com/NvidiaSettings</vendor_url>
+  <icon_name>nvidia-settings</icon_name>
+
+  <action id="com.ubuntu.screen-resolution-extra.root-display">
+    <description gettext-domain="screen-resolution-extra">Save Display Configuration</description>
+    <message gettext-domain="screen-resolution-extra">Authentication is required to save the current display configuration</message>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/share/screen-resolution-extra/nvidia-polkit</annotate>
+
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+  </action>
+
+  <action id="com.ubuntu.screen-resolution-extra.root-prime">
+    <description gettext-domain="screen-resolution-extra">Enable or disable the NVIDIA GPU with PRIME</description>
+    <message gettext-domain="screen-resolution-extra">Authentication is required to save the current PRIME configuration</message>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/prime-select</annotate>
+
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+  </action>
+
+</policyconfig>

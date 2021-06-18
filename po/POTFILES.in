@@ -1,3 +1,2 @@
 [encoding: UTF-8]
-ScreenResolution/ui.py
-screenresolution-mechanism.policy.in
+com.ubuntu.screen-resolution-extra.policy.in

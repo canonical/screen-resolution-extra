@@ -1,0 +1,62 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+## Copyright (C) 2001-2008 Alberto Milone <albertomilone@gmail.com>
+## Copyright (C) 2019 Canonical Ltd
+
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 2 of the License, or
+## (at your option) any later version.
+
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+
+import logging
+import argparse
+import os
+import shutil
+
+from xkit import xutils, xorgparser
+
+
+# Usage:
+# /usr/share/screen-resolution-extra/nvidia-polkit --help
+#
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('destination', help='The destination path')
+    parser.add_argument("-w", "--write-from", help='write xorg.conf from FILE', metavar='FILE')
+    parser.add_argument("-b", "--backup-to", help='backup file to FILE', metavar='FILE')
+
+    args = parser.parse_args()
+
+    if args.backup_to and os.path.isfile(args.destination):
+        try:
+            shutil.copyfile(args.destination, args.backup_to)
+            logging.debug('Making backup of %s to %s' % (args.destination, args.backup_to))
+        except IOError as e:
+            logging.error('%s' % e)
+            exit(1)
+
+    try:
+        xutils.XUtils(args.write_from)
+        logging.debug('%s is a valid xorg.conf file.' % args.write_from)
+    except(IOError, xorgparser.ParseException):#if xorg.conf is missing or broken
+        logging.error('%s does not seem to be a valid xorg.conf file.' % args.write_from)
+        exit(1)
+
+    try:
+        shutil.copyfile(args.write_from, args.destination)
+        logging.debug('%s was written successfully to %s.' % (args.write_from, args.destination))
+    except IOError as e:
+        logging.error('%s' % e)
+        exit(1) 
+

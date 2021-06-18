@@ -2,7 +2,8 @@ Source: screen-resolution-extra
 Section: x11
 Priority: optional
 Build-Depends:
- debhelper (>= 7.0.50~),
+ debhelper (>= 9),
+ dh-python,
  python3-all-dev,
  intltool,
  python3-distutils-extra
@@ -16,10 +17,10 @@ Vcs-Browser: https://github.com/tseliot/screen-resolution-extra.git
 Package: screen-resolution-extra
 Architecture: all
 Depends:
- ${python:Depends},
+ ${python3:Depends},
  python3-xkit (>= 0.5.0),
  gnome-shell | policykit-1-gnome | polkit-1-auth-agent,
  python3-gi,
  ${misc:Depends}
-Description: Extension for the GNOME screen resolution applet
- Extension for the GNOME screen resolution applet.
+Description: Extension for the nvidia-settings control panel
+ Extra features for the nvidia-settings control panel.
