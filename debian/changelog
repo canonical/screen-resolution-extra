@@ -1,3 +1,9 @@
+screen-resolution-extra (0.18) UNRELEASED; urgency=medium
+
+  * 
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Mon, 20 May 2019 17:30:05 +0200
+
 screen-resolution-extra (0.17.4) disco; urgency=medium
 
   * debian/control:
