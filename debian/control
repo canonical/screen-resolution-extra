@@ -2,14 +2,14 @@ Source: screen-resolution-extra
 Section: x11
 Priority: optional
 Build-Depends:
- debhelper (>= 9),
+ debhelper (>= 10),
  dh-python,
  python3-all-dev,
  intltool,
  python3-distutils-extra
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Alberto Milone (tseliot) <albertomilone@alice.it>
-Standards-Version: 3.8.3
+Standards-Version: 4.1.4
 X-Python3-Version: >= 3.2
 Vcs-Git: git://github.com/tseliot/screen-resolution-extra.git
 Vcs-Browser: https://github.com/tseliot/screen-resolution-extra.git
