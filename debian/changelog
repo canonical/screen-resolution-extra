@@ -1,6 +1,29 @@
-screen-resolution-extra (0.18) UNRELEASED; urgency=medium
+screen-resolution-extra (0.18) eoan; urgency=medium
 
-  * 
+  * ScreenResolution/__init__.py
+    ScreenResolution/ui.py,
+    com.ubuntu.ScreenResolution.Mechanism.conf,
+    com.ubuntu.ScreenResolution.Mechanism.service,
+    debian/screen-resolution-extra.install,
+    nvidia-polkit.py,
+    nvidia-prime.py,
+    policyui.py,
+    screenresolution-mechanism,
+    screenresolution-mechanism.policy.in:
+    - Drop obsolete files.
+  * nvidia-polkit,
+    com.ubuntu.screen-resolution-extra.policy.in:
+    - Add new files for polkit support in
+      nvidia-settings (LP: #1822937).
+  * po/POTFILES.in,
+    po/createpot.py,
+    setup.cfg,
+    setup.py:
+    - Adjust files to reflect the new changes.
+  * debian/compat:
+    - Update compatibility to 9.
+  * debian/control:
+    - Update build dependencies.
 
  -- Alberto Milone <alberto.milone@canonical.com>  Mon, 20 May 2019 17:30:05 +0200
 
