@@ -1,3 +1,9 @@
+screen-resolution-extra (0.18.1.20.04.1) UNRELEASED; urgency=medium
+
+  * 
+
+ -- Alberto Milone <alberto.milone@canonical.com>  Mon, 28 Jun 2021 14:12:45 +0200
+
 screen-resolution-extra (0.18build1) focal; urgency=medium
 
   * No-change rebuild to build with python3.8.
