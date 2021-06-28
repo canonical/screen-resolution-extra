@@ -1,8 +1,13 @@
-screen-resolution-extra (0.18.1.20.04.1) UNRELEASED; urgency=medium
+screen-resolution-extra (0.18.0.20.04.1) focal; urgency=medium
 
-  * 
+  * debian/control:
+    - Make policykit-1-gnome the first choice (LP: #1930937).
+      This means that, while all the other optional dependencies
+      will be honoured, when no such dependency is installed
+      (e.g. on very minimal installations), we will avoid
+      pulling in the whole gnome-shell just for polkit.
 
- -- Alberto Milone <alberto.milone@canonical.com>  Mon, 28 Jun 2021 14:12:45 +0200
+ -- Alberto Milone <alberto.milone@canonical.com>  Mon, 28 Jun 2021 14:16:00 +0200
 
 screen-resolution-extra (0.18build1) focal; urgency=medium
 
