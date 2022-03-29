@@ -1,3 +1,9 @@
+screen-resolution-extra (0.18.1build1) jammy; urgency=medium
+
+  * No-change rebuild to add python3.10.
+
+ -- Matthias Klose <doko@ubuntu.com>  Sat, 16 Oct 2021 06:59:40 +0000
+
 screen-resolution-extra (0.18.1) impish; urgency=medium
 
   * debian/control, debian/compat:
