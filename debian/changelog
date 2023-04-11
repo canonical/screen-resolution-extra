@@ -1,8 +1,10 @@
-screen-resolution-extra (0.18.3) UNRELEASED; urgency=medium
+screen-resolution-extra (0.18.3) lunar; urgency=medium
 
-  * 
+  [ Nathan Teodosio ]
+  * setup.py:
+    - Pass in py_modules=[] to setup() (LP: #2015777).
 
- -- Alberto Milone <alberto.milone@canonical.com>  Tue, 11 Apr 2023 13:47:22 +0000
+ -- Alberto Milone <alberto.milone@canonical.com>  Tue, 11 Apr 2023 13:51:20 +0000
 
 screen-resolution-extra (0.18.2) jammy; urgency=medium
 
