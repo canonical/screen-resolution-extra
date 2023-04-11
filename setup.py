@@ -23,6 +23,7 @@ setup(
     url="http://www.albertomilone.com",
     license="gpl",
     description="Extension for the GNOME Screen Resolution applet",
+    py_modules=[],
     data_files=[
                 ("share/polkit-1/actions", glob.glob("com.ubuntu.screen-resolution-extra.policy")),
                 ("share/screen-resolution-extra", glob.glob("nvidia-polkit")),
